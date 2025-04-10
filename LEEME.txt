@@ -1,0 +1,85 @@
+1. Estructura del proyecto
+Laravel 12 como framework principal.
+
+El proyecto está basado en arquitectura modular por responsabilidades (Auth, Players, Tournaments, Swagger, etc.).
+
+JWT para autenticación, mediante el paquete tymon/jwt-auth.
+
+2. Autenticación
+Implementamos la autenticacion encargada del login y validación de tokens JWT.
+
+Configuramos el auth.php con un guard api que utiliza el driver jwt.
+
+Creamos el endpoint:
+
+POST /login → devuelve token JWT.
+
+3. Players
+Creamos el modelo, migración y controlador Player.
+
+Campos: name, dni, gender (Masculino/Femenino).
+
+Endpoint:
+
+POST /api/v1/players → almacena un nuevo jugador.
+
+Validamos los datos correctamente (DNI único, gender limitado).
+
+4. Tournaments
+Modelo, migración y controlador Tournament.
+
+Campos: name, category (Masculino/Femenino).
+
+Endpoint:
+
+POST /api/v1/tournaments → crea un torneo con jugadores.
+
+Validamos que los jugadores existan y coincidan con la categoría del torneo.
+
+5. Simulación de torneo
+Se implemento el método simulateTournament():
+
+Genera rondas con emparejamientos aleatorios.
+
+Usa puntuaciones aleatorias y elimina perdedores.
+
+Devuelve:
+
+Ganador final.
+
+Historial por rondas.
+
+Endpoint:
+
+POST /api/v1/tournaments/{id}/simulate
+
+6. Test unitarios
+Se agrego tests con PHPUnit:
+
+Test para crear jugadores.
+
+Test para crear torneos.
+
+Test para simular un torneo completo.
+
+Verificamos casos de éxito y validaciones fallidas.
+
+7. Documentación con Swagger
+Instalamos l5-swagger.
+
+Configuramos la ruta http://127.0.0.1:8000/api/documentation.
+
+Agregamos anotaciones @OA\* en los controladores.
+
+Incluimos:
+
+Info general.
+
+Login.
+
+Players.
+
+Tournaments.
+
+Simulación.
+

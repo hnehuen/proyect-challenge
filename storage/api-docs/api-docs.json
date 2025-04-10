@@ -1,0 +1,145 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Torneo de Tenis",
+        "description": "Documentación de endpoints para la prueba técnica",
+        "contact": {
+            "email": "tuemail@ejemplo.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/api/v1/players": {
+            "get": {
+                "tags": [
+                    "Players"
+                ],
+                "summary": "Listar todos los jugadores",
+                "operationId": "16812a1b3b1d32a4a62cddb75eff8f4b",
+                "responses": {
+                    "200": {
+                        "description": "Lista de jugadores"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tournaments": {
+            "post": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Crear un nuevo torneo",
+                "operationId": "03acdaf302bd8b35e84930bda457627f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "category",
+                                    "player_ids"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Copa Invencible"
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Masculino",
+                                            "Femenino"
+                                        ],
+                                        "example": "Masculino"
+                                    },
+                                    "player_ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2,
+                                            3,
+                                            4
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Torneo creado correctamente"
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tournaments/{id}/simulate": {
+            "post": {
+                "tags": [
+                    "Tournaments"
+                ],
+                "summary": "Simular el torneo",
+                "operationId": "7f5cd44d720c9b49ec29ac27262e493e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del torneo",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resultado de la simulación"
+                    },
+                    "400": {
+                        "description": "El torneo ya fue simulado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Players",
+            "description": "Players"
+        },
+        {
+            "name": "Tournaments",
+            "description": "Tournaments"
+        }
+    ]
+}
