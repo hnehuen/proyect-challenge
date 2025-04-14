@@ -17,4 +17,10 @@ class Player extends Model
         'speed',
         'reaction_time',
     ];
+
+    public function tournaments()
+    {
+        return $this->belongsToMany(Tournament::class);
+    }
+
 }
